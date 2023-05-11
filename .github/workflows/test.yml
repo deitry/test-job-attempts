@@ -13,6 +13,7 @@ jobs:
       run: exit -1
 
     - id: work
+      if: ${{ always() && vars.SHOULD_OUTPUT == 'true' }}
       run: echo "someValue=myOutput" >> $GITHUB_OUTPUT
 
   second:
