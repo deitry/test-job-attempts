@@ -7,16 +7,18 @@ jobs:
       someValue: ${{ steps.work.outputs.someValue }}
 
     runs-on: ubuntu-latest
-    
+
     steps:
     - if: ${{ vars.SHOULD_FAIL == 'true' }}
       run: exit -1
-    
+
     - id: work
       run: echo "someValue=myOutput" >> $GITHUB_OUTPUT
 
   second:
     needs: [first]
+    if: always()
+
     runs-on: ubuntu-latest
     steps:
     - run: echo "${{ needs.first.outputs.someValue }}"
